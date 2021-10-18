@@ -135,21 +135,22 @@ protected:
 		}
 	}
 
-	bool containsHelper(Node<T>* ptr, T key) {
+	int containsHelper(Node<T>* ptr, T key) {
 		if (ptr == NULL) {
-			return false;
+			return 0;
 		}
 		else {
 			if (key == ptr->value) {
-				return true;
+				return 1;
 			}
 			else if (key < ptr->value) {
-				return containsHelper(ptr->left, key);      //you forgot to return the value
+				return containsHelper(ptr->left, key);
 			}
 			else if (key > ptr->value) {
 				return containsHelper(ptr->right, key);
 			}
 		}
+		return 0;
 	}
 
 	void printMaxPathHelper(Node<T>* ptr) {
@@ -230,7 +231,7 @@ public:
 	 * Print the maximum path in this tree
 	 */
 	void printMaxPath() {
-		printMaxPathHelper(this->_root);
+		this->printMaxPathHelper(this->_root);
 	}
 
 	bool deleteValue(T value) {
@@ -240,8 +241,8 @@ public:
 	/**
 	 * Find if the BST contains the value
 	 */
-	bool contains(T value) {
-		return containsHelper(_root, value);
+	int contains(T value) {
+		return this->containsHelper(this->_root, value);
 	}
 };
 
