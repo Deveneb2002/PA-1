@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/deven/PA-1/PA2_test/AVLNode.h
+stdlib.h
+-
+iostream
+-
+string
+-
+fstream
+-
+algorithm
+-
+random
+-
+
+/home/deven/PA-1/PA2_test/main.cpp
+AVLNode.h
+/home/deven/PA-1/PA2_test/AVLNode.h
+
