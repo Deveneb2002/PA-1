@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <random>     
 template <class T>
 class AVLNode
 {
@@ -91,7 +92,7 @@ public:
     void setRoot(AVLNode<T>* node);
     int height();
     AVLNode<T>* insert(AVLNode<T>* node, int key);
-    int contains();
+    int contains(T key);
     int validate();
     AVLNode<T>* rightRotate(AVLNode<T>* y);
     AVLNode<T>* leftRotate(AVLNode<T>* x);
@@ -229,11 +230,54 @@ AVLNode<T>* AVLTree<T>::insert(AVLNode<T>* node, int key) {
 }
 
 template <class T>
-int AVLTree<T>::contains() {
+int containsHelper(AVLNode<T>* node, T key){
+    if (node == NULL)
+        return 0;
 
+    if (node->getData() == key)
+        return 1;
+
+
+    int res1 = containsHelper(node->getLeft(), key);
+    if (res1 == 1) {
+        return 1;
+    }
+
+    int res2 = containsHelper(node->getRight(), key);
+
+    return res2;
+}
+
+template <class T>
+int AVLTree<T>::contains(T key) {
+    return containsHelper(root, key);
+}
+
+template <class T>
+int validateHelper(AVLNode<T>* node) {
+    if (node == NULL)
+        return 0;
+
+    if (getBalance(node) > 1)
+        return 1;
+
+
+    int res1 = validateHelper(node->getLeft());
+    if (res1 == 1) {
+        return 1;
+    }
+
+    int res2 = validateHelper(node->getRight());
+
+    return res2;
 }
 
 template <class T>
 int AVLTree<T>::validate() {
-
+    if (validateHelper(root) == 1) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
 }
