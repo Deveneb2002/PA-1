@@ -37,6 +37,21 @@ private:
 		// your code goes here
 		int item_index = 1;
 		T temp;
+		while (item_index * 2  + 1 >= _items.size()) {
+			if (item_index * 2 >= _items.size()) {
+				return;
+			}
+			if (_items[item_index] > _items[item_index * 2]) {
+				temp = _items[item_index];
+				_items[item_index] = _items[item_index * 2];
+				_items[item_index * 2] = temp;
+				item_index = item_index * 2;
+
+				if (item_index * 2 + 1 >= _items.size()) {
+					return;
+				}
+			}
+		}
 		while (_items[item_index] > std::min(_items[item_index * 2], _items[item_index * 2 + 1])) {
 			temp = _items[item_index];
 			_items[item_index] = std::min(_items[item_index * 2], _items[item_index * 2 + 1]);
@@ -49,7 +64,9 @@ private:
 				item_index = item_index * 2 + 1;
 			}
 
-
+			if (item_index * 2 + 1 >= _items.size()) {
+				return;
+			}
 		}
 			
 
@@ -66,7 +83,8 @@ private:
     	// your code goes here
 		int item_index = _items.size();
 		T temp;
-		while (_items[floor(item_index / 2)] < item) {
+		_items.push_back(item);
+		while (_items[floor(item_index / 2)] > item) {
 			temp = _items[floor(item_index / 2)];
 			_items[floor(item_index / 2)] = item;
 			_items[item_index] = temp;
